@@ -1,14 +1,25 @@
 package info.socialhackathonumbria.codelab
 
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
     var count = 0
+        set(value) {
+            field = value
+            textView.text = value.toString()
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -16,6 +27,45 @@ class MainActivity : AppCompatActivity() {
         buttonToast.setOnClickListener(this::showToast)
         buttonCount.setOnClickListener(this::increaseCount)
         buttonRandom.setOnClickListener(this::showRandom)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val prefs = getPreferences(Context.MODE_PRIVATE)
+        count = prefs.getInt("counter", 0)
+    }
+
+    override fun onPause() {
+        val prefs = getPreferences(Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.putInt("counter", count)
+        editor.apply()
+        super.onPause()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_reset -> resetCounter()
+        else -> super.onOptionsItemSelected(item)
+    }
+
+    fun resetCounter() : Boolean {
+        AlertDialog.Builder(this)
+                .setTitle("Attenzione")
+                .setMessage("Vuoi azzerare il contatore?")
+                .setNegativeButton("Annulla", null)
+                .setPositiveButton("Ok", this::resetConfirm)
+                .show()
+
+        return true
+    }
+
+    fun resetConfirm(dialog: DialogInterface, wich: Int) {
+        count = 0
     }
 
 
@@ -27,7 +77,6 @@ class MainActivity : AppCompatActivity() {
 
     fun increaseCount(view: View) {
         count++
-        textView.text = "$count"
     }
 
     fun showRandom(view: View) {
