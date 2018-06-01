@@ -7,7 +7,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-var count=0
+    var count = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,7 +24,7 @@ var count=0
         toast.show()
     }
 
-    fun increaseCount(view: View ){
+    fun increaseCount(view: View) {
         count++
         textView.text = "$count"
     }
