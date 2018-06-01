@@ -1,5 +1,6 @@
 package info.socialhackathonumbria.codelab
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         buttonToast.setOnClickListener(this::showToast)
         buttonCount.setOnClickListener(this::increaseCount)
-
+        buttonRandom.setOnClickListener(this::showRandom)
     }
 
 
@@ -28,4 +29,14 @@ class MainActivity : AppCompatActivity() {
         count++
         textView.text = "$count"
     }
+
+    fun showRandom(view: View) {
+        val intent = Intent(this, RandomActivity::class.java)
+
+        intent.putExtra(RandomActivity.EXTRA_COUNTER, count)
+
+        startActivity(intent)
+    }
+
+
 }

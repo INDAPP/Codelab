@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Codelab</string>
     <string name="main_text">Hello World!</string>
+    <string name="random_description">Questo è un numero random tra 0 e %1d</string>
 </resources>
