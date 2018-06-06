@@ -12,6 +12,10 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import info.socialhackathonumbria.core.get
+import info.socialhackathonumbria.core.prefs
+import info.socialhackathonumbria.core.set
+import info.socialhackathonumbria.core.toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -37,16 +41,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val prefs = getPreferences(Context.MODE_PRIVATE)
-
-        count = prefs.getInt("counter", 0)
+//        val prefs = getPreferences(Context.MODE_PRIVATE)
+//        count = prefs.getInt("counter", 0)
+        count = prefs["counter"] ?: 0
     }
 
     override fun onPause() {
-        val prefs = getPreferences(Context.MODE_PRIVATE)
-        val editor = prefs.edit()
-        editor.putInt("counter", count)
-        editor.apply()
+//        val prefs = getPreferences(Context.MODE_PRIVATE)
+//        val editor = prefs.edit()
+//        editor.putInt("counter", count)
+//        editor.apply()
+        prefs["counter"] = count
+
         super.onPause()
     }
 
@@ -77,9 +83,9 @@ class MainActivity : AppCompatActivity() {
 
 
     fun showToast(view: View) {
-        val toast = Toast.makeText(this, "Questo è un toast", Toast.LENGTH_SHORT)
-
-        toast.show()
+//        val toast = Toast.makeText(this, "Questo è un toast", Toast.LENGTH_SHORT)
+//        toast.show()
+        toast(R.string.toast_message)
     }
 
     fun increaseCount(view: View) {
