@@ -9,20 +9,26 @@ import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    lateinit var anim: Animation
 
     var count = 0
         set(value) {
             field = value
             textView.text = value.toString()
+            textView.startAnimation(anim)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        anim = AnimationUtils.loadAnimation(this, R.anim.pulse)
 
         buttonToast.setOnClickListener(this::showToast)
         buttonCount.setOnClickListener(this::increaseCount)
@@ -32,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val prefs = getPreferences(Context.MODE_PRIVATE)
+
         count = prefs.getInt("counter", 0)
     }
 
