@@ -15,18 +15,5 @@ class MainActivity : AppCompatActivity() {
             progressBar.visibility = View.GONE
         }
 
-//        Picasso.get()
-//                .load("https://picsum.photos/1080/1920/?random")
-//                .into(imageView, object : Callback {
-//
-//                    override fun onSuccess() {
-//                        progressBar.visibility = View.GONE
-//                    }
-//
-//                    override fun onError(e: Exception?) {
-//                        progressBar.visibility = View.GONE
-//                    }
-//
-//                })
     }
 }
