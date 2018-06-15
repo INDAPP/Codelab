@@ -1,17 +1,20 @@
 package info.socialhackathonumbria.viewer
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_image.view.*
 
 
 private const val ARG_INDEX = "index"
+private const val ARG_URLSTRING = "urlstring"
 
 class ImageFragment : Fragment() {
+
+    private var urlstring: String? = null
     private var index: Int? = null
 
     private var listener: OnImageFragmentListener? = null
@@ -21,6 +24,7 @@ class ImageFragment : Fragment() {
 
         arguments?.let {
             index = it.getInt(ARG_INDEX)
+            urlstring =  it.getString(ARG_URLSTRING)
         }
     }
 
@@ -30,7 +34,9 @@ class ImageFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        view.imageView.setImageURL(urlstring) {
+            view.progressBar.visibility = View.GONE
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -38,7 +44,7 @@ class ImageFragment : Fragment() {
         if (context is OnImageFragmentListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnImageFragmentListener")
         }
     }
 
@@ -53,10 +59,11 @@ class ImageFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(index: Int) =
+        fun newInstance(index: Int, urlstring: String?) =
                 ImageFragment().apply {
                     arguments = Bundle().apply {
                         putInt(ARG_INDEX, index)
+                        putString(ARG_URLSTRING, urlstring)
                     }
                 }
 
