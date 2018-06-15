@@ -2,7 +2,9 @@ package info.socialhackathonumbria.core
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.widget.Toast
 
 /**
@@ -32,3 +34,11 @@ operator fun <T> SharedPreferences.set(key: String, value: T) {
 }
 
 operator fun <T> SharedPreferences.get(key: String) : T? = all[key] as? T
+
+fun Context.shareURL(urlString: String, type: String? = null) {
+    val intent = Intent(Intent.ACTION_SEND)
+    val uri = Uri.parse(urlString)
+    intent.putExtra(Intent.EXTRA_STREAM, uri)
+    intent.type = type
+    this.startActivity(intent)
+}

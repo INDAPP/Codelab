@@ -3,9 +3,7 @@ package info.socialhackathonumbria.viewer
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_image.view.*
 
 
@@ -21,7 +19,7 @@ class ImageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setHasOptionsMenu(true)
         arguments?.let {
             index = it.getInt(ARG_INDEX)
             urlstring =  it.getString(ARG_URLSTRING)
@@ -39,6 +37,13 @@ class ImageFragment : Fragment() {
         }
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser)
+            index?.let { listener?.onImageShow(it) }
+        //listener?.onImageShow(index)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnImageFragmentListener) {
@@ -53,8 +58,24 @@ class ImageFragment : Fragment() {
         listener = null
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_image, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_share -> {
+                listener?.onShareImageUrl(urlstring)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     interface OnImageFragmentListener {
         fun onImageShow(index: Int)
+        fun onShareImageUrl(url: String?)
     }
 
     companion object {
