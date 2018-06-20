@@ -7,4 +7,5 @@
         android:icon="@drawable/ic_block"
         android:title="Reset counter"
         app:showAsAction="ifRoom|withText" />
+
 </menu>

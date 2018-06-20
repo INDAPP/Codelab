@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter
  * info@indapp.it
  */
 
-class ImageAdapter(fm: FragmentManager?, val urls: Array<String?>)
+class ImageAdapter(fm: FragmentManager?, val urls: List<String>)
     : FragmentPagerAdapter(fm) {
 
 

@@ -1,4 +1,4 @@
-package info.socialhackathonumbria.viewer
+package info.socialhackathonumbria.images
 
 import android.widget.ImageView
 import com.squareup.picasso.Callback
