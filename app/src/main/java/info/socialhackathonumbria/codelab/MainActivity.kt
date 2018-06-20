@@ -1,23 +1,19 @@
 package info.socialhackathonumbria.codelab
 
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import info.socialhackathonumbria.core.get
 import info.socialhackathonumbria.core.prefs
 import info.socialhackathonumbria.core.set
 import info.socialhackathonumbria.core.toast
-import info.socialhackathonumbria.images.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
