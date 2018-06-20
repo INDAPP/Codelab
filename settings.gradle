@@ -1,1 +1,1 @@
-include ':app', ':viewer', ':core', ':images'
+include ':app', ':viewer', ':core', ':images', ':gallery'
