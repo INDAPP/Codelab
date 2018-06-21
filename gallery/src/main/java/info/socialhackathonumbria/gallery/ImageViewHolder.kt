@@ -12,7 +12,19 @@ import kotlinx.android.synthetic.main.viewholder_image.view.*
  * Copyright © 2018 INDAPP
  * info@indapp.it
  */
-class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ImageViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
     val imageView: ImageView = itemView.imageView
     val progressBar: ProgressBar = itemView.progressBar
 }
+
+//class ImageViewHolder extends RecyclerView.ViewHolder {
+//    final ImageView imageView;
+//    final ProgressBar progressBar;
+//
+//    public ImageViewHolder(View itemView) {
+//        super(itemView)
+//        this.imageView = itemView.findViewById(R.id.imageView);
+//        this.progressBar = itemView.findViewById(R.id.progressBar);
+//    }
+//}

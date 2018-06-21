@@ -44,10 +44,11 @@ fun Context.shareURL(urlString: String, type: String? = null) {
 }
 
 
-fun Context.shareUrls(urlStrings: List<String>, type: String? = null) {
+fun Context.shareUrls(urlStrings: List<String>, type: String? = null, index: Int = 0) {
     val intent = Intent(Intent.ACTION_SEND_MULTIPLE)
     val uris = ArrayList(urlStrings.map { Uri.parse(it) })
     intent.putExtra(Intent.EXTRA_STREAM, uris)
+    intent.putExtra("android.intent.extra.INDEX", index)
     intent.type = type
     startActivity(intent)
 }

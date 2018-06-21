@@ -20,8 +20,10 @@ class MainActivity : AppCompatActivity(), ImageFragment.OnImageFragmentListener 
             when(action) {
                 Intent.ACTION_SEND_MULTIPLE -> {
                     val uris = getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
+                    val index = getIntExtra("android.intent.extra.INDEX", 0)
                     val urls = uris.map { it.toString() }
                     viewPager.adapter = ImageAdapter(supportFragmentManager, urls)
+                    viewPager.currentItem = index
                 }
             }
         }

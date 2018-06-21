@@ -15,6 +15,6 @@ object Utils {
 //    }
 
     fun generateImages(count : Int, width : Int = 1080, height : Int = 1920) : List<String> =
-            (0 until count).map { "https://picsum.photos/$width/$height/?image=$it"}
+            (0 until count).map { "https://picsum.photos/$width/$height/?image=$it" }
 
 }
