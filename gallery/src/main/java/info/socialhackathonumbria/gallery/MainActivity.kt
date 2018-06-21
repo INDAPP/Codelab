@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
+        val urls = Utils.generateImages(120)
         shareUrls(urls, "image/*", position)
     }
 }
