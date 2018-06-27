@@ -20,8 +20,12 @@ class MainActivity : AppCompatActivity(), Callback<CoindeskResponse> {
     override fun onResponse(call: Call<CoindeskResponse>?, response: Response<CoindeskResponse>?) {
         progressBar.visibility = View.GONE
 
-        response?.body()?.let {
-            textView.text = "1 BTC = ${it.bpi.EUR.rate_float} ${it.bpi.EUR.code}"
+        val body = response?.body()
+
+        if (body != null) {
+            textView.text = "1 BTC = ${body.bpi.EUR.rate_float} ${body.bpi.EUR.code}"
+        } else {
+            textView.text = "Non sono presenti informazioni"
         }
     }
 
