@@ -1,1 +1,1 @@
-include ':app', ':viewer', ':core', ':images', ':gallery', ':bitcoin', ':crypto', ':events'
+include ':app', ':viewer', ':core', ':images', ':gallery', ':bitcoin', ':crypto', ':events', ':diary'
