@@ -7,6 +7,6 @@ package info.socialhackathonumbria.diary
  * info@indapp.it
  */
 data class Post(
-        val text: String,
-        val image: String
+        var text: String? = null,
+        var image: String? = null
 )

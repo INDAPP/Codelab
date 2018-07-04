@@ -8,12 +8,21 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import info.socialhackathonumbria.core.toast
 import kotlinx.android.synthetic.main.activity_post.*
+import java.io.ByteArrayOutputStream
+import java.util.*
 
 const val REQUEST_PHOTO = 1001
 
 class PostActivity : AppCompatActivity() {
+    lateinit var storage: StorageReference
+    lateinit var database: DatabaseReference
+
     private var bitmap: Bitmap? = null
         set(value) {
             field = value
@@ -23,6 +32,9 @@ class PostActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post)
+
+        storage = FirebaseStorage.getInstance().reference
+        database = FirebaseDatabase.getInstance().reference
 
         imageView.setOnClickListener {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -61,7 +73,33 @@ class PostActivity : AppCompatActivity() {
         val text = editText.text.toString()
         if (text.isBlank()) return toast("Devi scrivere qualcosa")
 
-        //TODO: salvare il post su server
+        upload(bitmap) {
+            save(text, it)
+        }
+    }
+
+    fun upload(bitmap: Bitmap, callback: (String) -> Unit) {
+        val uuid = UUID.randomUUID().toString()
+        val newImageRef = storage.child("$uuid.jpg")
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
+        val data = stream.toByteArray()
+        newImageRef.putBytes(data)
+                .addOnFailureListener {
+                    it.printStackTrace()
+                    toast("Si è verificato un errore durante il caricamento dell'immagine")
+                }
+                .addOnSuccessListener {
+//                    val url = it.uploadSessionUri.toString()
+                    callback("$uuid.jpg")
+                }
+    }
+
+    fun save(text: String, imageName: String) {
+        val post = Post(text, imageName)
+        database.child("posts").push().setValue(post)
+        toast("Nuovo post creato!")
+        finish()
     }
 
 }
